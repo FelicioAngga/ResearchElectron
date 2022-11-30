@@ -56,7 +56,7 @@ function createMainWindow() {
         webPreferences: {
             sandbox: false,
             contextIsolation: true,
-            preload: path.join(electron_1.app.getAppPath(), '/preloadJS/mainPreload.js')
+            preload: path.join(electron_1.app.getAppPath(), './preloadJS/mainPreload.js')
         },
     });
     mainWindow.webContents.openDevTools();
@@ -73,7 +73,7 @@ function createUserWindow() {
         focusable: true,
         webPreferences: {
             contextIsolation: true,
-            preload: path.join(electron_1.app.getAppPath(), '/preloadJS/userPreload.js')
+            preload: path.join(electron_1.app.getAppPath(), './preloadJS/userPreload.js'),
         },
     });
     userWindow.webContents.openDevTools();
@@ -81,24 +81,34 @@ function createUserWindow() {
     userWindow.once('ready-to-show', function () {
     });
 }
+var runAppLibrary = ffi.Library('./MathLibrary', {
+    "Random": [
+        "int", ["int", "int"]
+    ],
+    "ListProcesses": [
+        'string', []
+    ],
+    "DisableHotKey": [
+        'void', []
+    ],
+    "EnableHotKey": [
+        'void', []
+    ],
+});
 electron_1.app.on('ready', function () {
     createMainWindow();
     encryptDb();
-    var runAppLibrary = ffi.Library('./MathLibrary', {
-        "Random": [
-            "int", ["int", "int"]
-        ],
-        "ListProcesses": [
-            'string', []
-        ]
-    });
-    setInterval(function () {
-        var listProcess = runAppLibrary.ListProcesses().split('|').filter(function (e) { return e !== ''; });
-        mainWindow.webContents.send('message', listProcess);
-    }, 3000);
+    runAppLibrary.DisableHotKey();
+    // setInterval(() => {
+    //   let listProcess = runAppLibrary.ListProcesses().split('|').filter(e => e !== '');
+    //   mainWindow.webContents.send('message', listProcess)
+    // }, 3000)
     // mainWindow.webContents.on('before-input-event', (e, input) => {
     //   if (input.alt && input.key === 'Tab') e.preventDefault();
     //   console.log(input.alt && input.key === 'Tab')
+    // })
+    // mainWindow.on('close', (e) => {
+    //   e.preventDefault();
     // })
 });
 function encryptDb() {
@@ -132,6 +142,7 @@ electron_1.ipcMain.on('openUser', function (e, option) {
 });
 electron_1.ipcMain.on('message', function (e, args) {
     // clients[0].client.write(args + " ")
+    runAppLibrary.EnableHotKey();
 });
 electron_1.ipcMain.on('add-user', function () {
     db.run("INSERT INTO user (username, password) VALUES ('muahaha', 'asdasd')", function (err) {

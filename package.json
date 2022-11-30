@@ -1,14 +1,18 @@
 {
-  "name": "electron",
+  "name": "researchElectron",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "scripts": {
     "start": "electron .",
     "dev": "nodemon --exec electron .",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
+    "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --asar --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
   },
   "devDependencies": {
     "@types/electron": "^1.6.10",
@@ -20,6 +24,7 @@
     "@types/wol": "^1.0.1",
     "electron-packager": "^17.1.1",
     "electron-rebuild": "^3.2.9",
+    "electron-winstaller": "^5.1.0",
     "tailwindcss": "^3.2.3",
     "typescript": "^4.8.4"
   },
@@ -35,6 +40,7 @@
     "node-gyp": "^9.3.0",
     "node-windows": "^1.0.0-beta.8",
     "nodemon": "^2.0.20",
+    "update-electron-app": "^2.0.1",
     "wake_on_lan": "^1.0.0",
     "winreg": "^1.2.4"
   }

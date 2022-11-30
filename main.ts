@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron';
 import { exec } from 'child_process';
 import * as wol from 'wake_on_lan';
 import * as monitor  from 'node-active-window';
@@ -7,6 +7,7 @@ import * as net from 'net';
 import * as Registry from 'winreg';
 import * as sqlite3 from '@journeyapps/sqlcipher';
 import * as ffi from 'ffi-napi';
+import * as electronInstaller from 'electron-winstaller';
 import * as svc from './service';
 
 let mainWindow : BrowserWindow;
@@ -22,7 +23,7 @@ function createMainWindow(){
     webPreferences: {
       sandbox: false,
       contextIsolation: true,
-      preload: path.join(app.getAppPath(), '/preloadJS/mainPreload.js')
+      preload: path.join(app.getAppPath(), './preloadJS/mainPreload.js')
     },
   });
   mainWindow.webContents.openDevTools();
@@ -40,7 +41,7 @@ function createUserWindow(){
     focusable: true,
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(app.getAppPath(), '/preloadJS/userPreload.js')
+      preload: path.join(app.getAppPath(), './preloadJS/userPreload.js'),
     },
   });
   userWindow.webContents.openDevTools();
@@ -50,28 +51,42 @@ function createUserWindow(){
   })
 }
 
+const runAppLibrary = ffi.Library('./MathLibrary', {
+  "Random": [
+    "int", ["int","int"]
+  ],
+  "ListProcesses": [
+    'string', []
+  ],
+  "DisableHotKey": [
+    'void', []
+  ],
+  "EnableHotKey": [
+    'void', []
+  ],
+})
+
 app.on('ready', () => {
   createMainWindow();
   encryptDb();
-  const runAppLibrary = ffi.Library('./MathLibrary', {
-    "Random": [
-      "int", ["int","int"]
-    ],
-    "ListProcesses": [
-      'string', []
-    ]
-  })
+  runAppLibrary.DisableHotKey();
+  
 
-  setInterval(() => {
-    let listProcess = runAppLibrary.ListProcesses().split('|').filter(e => e !== '');
-    mainWindow.webContents.send('message', listProcess)
-  }, 3000)
+  // setInterval(() => {
+  //   let listProcess = runAppLibrary.ListProcesses().split('|').filter(e => e !== '');
+  //   mainWindow.webContents.send('message', listProcess)
+  // }, 3000)
   
   // mainWindow.webContents.on('before-input-event', (e, input) => {
   //   if (input.alt && input.key === 'Tab') e.preventDefault();
   //   console.log(input.alt && input.key === 'Tab')
   // })
+  
+  // mainWindow.on('close', (e) => {
+  //   e.preventDefault();
+  // })
 });
+
 
 function encryptDb(){
   db.serialize(() => {
@@ -104,6 +119,7 @@ ipcMain.on('openUser', (e, option) => {
 
 ipcMain.on('message', (e, args) => {
   // clients[0].client.write(args + " ")
+  runAppLibrary.EnableHotKey();
 })
 
 ipcMain.on('add-user', () => {
