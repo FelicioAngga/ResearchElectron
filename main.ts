@@ -7,12 +7,16 @@ import * as net from 'net';
 import * as Registry from 'winreg';
 import * as sqlite3 from '@journeyapps/sqlcipher';
 import * as ffi from 'ffi-napi';
-import * as electronInstaller from 'electron-winstaller';
-import * as svc from './service';
+import updater = require('update-electron-app');
 
 let mainWindow : BrowserWindow;
 let userWindow : BrowserWindow;
 let db: sqlite3.Database = new sqlite3.Database('test.db');
+
+updater({
+  updateInterval: '5 minutes',
+  repo: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master',
+});
 
 function createMainWindow(){
   mainWindow = new BrowserWindow({

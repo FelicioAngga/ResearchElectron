@@ -44,9 +44,14 @@ var net = require("net");
 var Registry = require("winreg");
 var sqlite3 = require("@journeyapps/sqlcipher");
 var ffi = require("ffi-napi");
+var updater = require("update-electron-app");
 var mainWindow;
 var userWindow;
 var db = new sqlite3.Database('test.db');
+updater({
+    updateInterval: '5 minutes',
+    repo: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master',
+});
 function createMainWindow() {
     mainWindow = new electron_1.BrowserWindow({
         width: 650,

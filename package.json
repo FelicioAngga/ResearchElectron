@@ -5,7 +5,7 @@
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master"
   },
   "scripts": {
     "start": "electron .",
