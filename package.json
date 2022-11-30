@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master"
+  "repository": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master",
+  "build": {
+    "appId": "ResearchElectron"
   },
   "scripts": {
     "start": "electron .",
     "dev": "nodemon --exec electron .",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dist": "electron-builder",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --asar --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
   },
   "devDependencies": {
@@ -22,6 +23,8 @@
     "@types/wake_on_lan": "^0.0.30",
     "@types/winreg": "^1.2.31",
     "@types/wol": "^1.0.1",
+    "electron": "^20.0.0",
+    "electron-builder": "^23.6.0",
     "electron-packager": "^17.1.1",
     "electron-rebuild": "^3.2.9",
     "electron-winstaller": "^5.1.0",
@@ -34,13 +37,13 @@
     "@journeyapps/sqlcipher": "^5.3.1",
     "@types/node": "^18.11.9",
     "active-win": "^7.7.2",
-    "electron": "^20.0.0",
+    "electron-log": "^4.4.8",
+    "electron-updater": "^5.3.0",
     "ffi-napi": "^4.0.3",
     "node-active-window": "^0.1.0",
     "node-gyp": "^9.3.0",
     "node-windows": "^1.0.0-beta.8",
     "nodemon": "^2.0.20",
-    "update-electron-app": "^2.0.1",
     "wake_on_lan": "^1.0.0",
     "winreg": "^1.2.4"
   }

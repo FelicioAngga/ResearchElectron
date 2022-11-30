@@ -7,16 +7,29 @@ import * as net from 'net';
 import * as Registry from 'winreg';
 import * as sqlite3 from '@journeyapps/sqlcipher';
 import * as ffi from 'ffi-napi';
-import updater = require('update-electron-app');
+import { autoUpdater } from 'electron-updater';
+import * as electronLog from 'electron-log';
 
+class AppUpdater {
+  constructor() {
+    
+    electronLog.transports.file.level = 'info';
+    autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
+    autoUpdater.setFeedURL({
+      provider: 'generic',
+      owner: 'lordFahdan',
+      url: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master'
+    })
+    autoUpdater.logger = electronLog;
+    autoUpdater.checkForUpdatesAndNotify();
+  }
+}
+
+process.env.NODE_ENV = 'production';
 let mainWindow : BrowserWindow;
 let userWindow : BrowserWindow;
 let db: sqlite3.Database = new sqlite3.Database('test.db');
 
-updater({
-  updateInterval: '5 minutes',
-  repo: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master',
-});
 
 function createMainWindow(){
   mainWindow = new BrowserWindow({
@@ -33,6 +46,8 @@ function createMainWindow(){
   mainWindow.webContents.openDevTools();
   mainWindow.loadFile('./app/index.html');
 }
+
+new AppUpdater();
 
 function createUserWindow(){
   userWindow = new BrowserWindow({
