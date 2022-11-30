@@ -78,6 +78,9 @@ function createMainWindow() {
     });
     mainWindow.webContents.openDevTools();
     mainWindow.loadFile('./app/index.html');
+    mainWindow.once("ready-to-show", function () {
+        electron_updater_1.autoUpdater.checkForUpdatesAndNotify();
+    });
 }
 new AppUpdater();
 function createUserWindow() {
