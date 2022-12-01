@@ -1,33 +1,27 @@
 {
   "name": "researchElectron",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/felicioangga004/researchelectron/"
+    "url": "https://github.com/FelicioAngga/ResearchElectron"
   },
   "build": {
     "appId": "ResearchElectron",
-    "publish": [
-      {
-        "provider": "generic",
-        "url": "https://gitlab.com/felicioangga004/researchelectron/"
-      }
-    ],
+    "productName": "ResearchElectron",
     "win": {
-      "target": [
-        "nsis"
-      ],
-      "verifyUpdateCodeSignature": false
-    }
+			"publish": [
+				"github"
+			]
+		}
   },
   "scripts": {
     "start": "electron .",
     "dev": "nodemon --exec electron .",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "electron-builder",
+    "dist": "set GH_TOKEN=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 && electron-builder --win --publish always",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --asar --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
   },
   "devDependencies": {
