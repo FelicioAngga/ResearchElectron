@@ -1,8 +1,8 @@
 version: 1.0.0
 files:
-  - url: researchElectron Setup 1.0.0.exe
-    sha512: GEV30MdwMyAa6BUaHE9Ow8focUZpc6dgBod3EwgnEshWXAWGwnvoa/gpzDO6m2Pu9u8eXDDMMUr1JF+3/nDU4A==
-    size: 76372802
-path: researchElectron Setup 1.0.0.exe
-sha512: GEV30MdwMyAa6BUaHE9Ow8focUZpc6dgBod3EwgnEshWXAWGwnvoa/gpzDO6m2Pu9u8eXDDMMUr1JF+3/nDU4A==
-releaseDate: '2022-12-01T02:37:41.855Z'
+  - url: ResearchElectron-Setup-1.0.0.exe
+    sha512: 7a5IxM6j9yV2o7duJRqHPLvKLVvREGAou/vg7zZx53HICjcRjKHmLeaM5d/DBknqmNGm7q9xbj1Ol5Pnho/DCw==
+    size: 76372422
+path: ResearchElectron-Setup-1.0.0.exe
+sha512: 7a5IxM6j9yV2o7duJRqHPLvKLVvREGAou/vg7zZx53HICjcRjKHmLeaM5d/DBknqmNGm7q9xbj1Ol5Pnho/DCw==
+releaseDate: '2022-12-01T05:36:39.318Z'

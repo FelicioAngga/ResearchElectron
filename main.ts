@@ -14,8 +14,15 @@ class AppUpdater {
   constructor() {
     
     electronLog.transports.file.level = 'info';
-    // autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
     autoUpdater.logger = electronLog;
+    autoUpdater.setFeedURL({
+      provider: "github",
+      repo: 'ResearchElectron',
+      owner: 'FelicioAngga',
+      private: true,
+      token: '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'
+
+    })
     autoUpdater.checkForUpdatesAndNotify().catch(err => {
       console.log(err);
     });

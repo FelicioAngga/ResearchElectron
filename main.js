@@ -49,8 +49,14 @@ var electronLog = require("electron-log");
 var AppUpdater = /** @class */ (function () {
     function AppUpdater() {
         electronLog.transports.file.level = 'info';
-        // autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
         electron_updater_1.autoUpdater.logger = electronLog;
+        electron_updater_1.autoUpdater.setFeedURL({
+            provider: "github",
+            repo: 'ResearchElectron',
+            owner: 'FelicioAngga',
+            private: true,
+            token: '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'
+        });
         electron_updater_1.autoUpdater.checkForUpdatesAndNotify().catch(function (err) {
             console.log(err);
         });

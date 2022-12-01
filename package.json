@@ -1,6 +1,7 @@
 {
   "name": "researchElectron",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "main.js",
   "repository": {
@@ -10,10 +11,17 @@
   "build": {
     "appId": "ResearchElectron",
     "productName": "ResearchElectron",
+    "directories": {
+			"output": "electron-build",
+			"buildResources": "build-assets"
+		},
     "win": {
 			"publish": [
 				"github"
-			]
+			],
+      "extraResources": [
+        "./*.dll"
+      ]
 		}
   },
   "scripts": {
@@ -21,7 +29,7 @@
     "dev": "nodemon --exec electron .",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "set GH_TOKEN=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 && electron-builder --win --publish always",
+    "dist": "electron-builder --win",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --asar --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
   },
   "devDependencies": {
