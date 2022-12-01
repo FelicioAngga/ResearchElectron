@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "repository": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/felicioangga004/researchelectron/"
+  },
   "build": {
     "appId": "ResearchElectron",
     "publish": [
       {
         "provider": "generic",
-        "url": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master"
+        "url": "https://gitlab.com/felicioangga004/researchelectron/"
       }
     ],
     "win": {

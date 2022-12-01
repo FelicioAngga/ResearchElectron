@@ -50,19 +50,22 @@ var AppUpdater = /** @class */ (function () {
     function AppUpdater() {
         electronLog.transports.file.level = 'info';
         // autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
-        electron_updater_1.autoUpdater.setFeedURL({
-            provider: 'generic',
-            owner: 'lordFahdan',
-            url: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master'
-        });
         electron_updater_1.autoUpdater.logger = electronLog;
-        electron_updater_1.autoUpdater.addAuthHeader("Bearer glpat-iw2CmwcAqSE2vDFUWmrD");
         electron_updater_1.autoUpdater.checkForUpdatesAndNotify().catch(function (err) {
             console.log(err);
         });
     }
     return AppUpdater;
 }());
+electron_updater_1.autoUpdater.on('update-available', function (updateInfo) {
+    var dialogOptions = {
+        type: 'info',
+        buttons: ['Ok'],
+        title: 'Application update',
+        message: updateInfo.version
+    };
+    electron_1.dialog.showMessageBox(dialogOptions);
+});
 process.env.NODE_ENV = 'production';
 var mainWindow;
 var userWindow;

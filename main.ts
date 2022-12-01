@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut, dialog, MessageBoxOptions } from 'electron';
 import { exec } from 'child_process';
 import * as wol from 'wake_on_lan';
 import * as monitor  from 'node-active-window';
@@ -15,18 +15,22 @@ class AppUpdater {
     
     electronLog.transports.file.level = 'info';
     // autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
-    autoUpdater.setFeedURL({
-      provider: 'generic',
-      owner: 'lordFahdan',
-      url: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master'
-    })
     autoUpdater.logger = electronLog;
-    autoUpdater.addAuthHeader(`Bearer glpat-iw2CmwcAqSE2vDFUWmrD`)
     autoUpdater.checkForUpdatesAndNotify().catch(err => {
-      console.log(err)
+      console.log(err);
     });
   }
 }
+
+autoUpdater.on('update-available', (updateInfo) => {
+  const dialogOptions: MessageBoxOptions = {
+    type: 'info',
+    buttons: ['Ok'],
+    title: 'Application update',
+    message: updateInfo.version
+  }
+  dialog.showMessageBox(dialogOptions);
+})
 
 process.env.NODE_ENV = 'production';
 let mainWindow : BrowserWindow;
@@ -185,7 +189,7 @@ let server = net.createServer(socket => {
 // server.listen(23000);
 
 function wakeOnLan(){
-  wol.wake('18-C0-4D-7E-BE-4D', {address: '192.168.23.145'}, (err) => {
+  wol.wake('18-C0-4D-7E-BE-4D', {address: '192.168.23.145'}, (err: any) => {
     console.log(err);
   })
 }
@@ -193,7 +197,7 @@ function wakeOnLan(){
 async function getActiveWindow(){  
   
   try{
-    monitor.getActiveWindow((err, res) => {
+    monitor.getActiveWindow((err: any, res: { title: any; }) => {
       if (!err) console.log(res.title);
     })
   }catch (err){
