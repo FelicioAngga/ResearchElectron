@@ -14,14 +14,17 @@ class AppUpdater {
   constructor() {
     
     electronLog.transports.file.level = 'info';
-    autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
+    // autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
     autoUpdater.setFeedURL({
       provider: 'generic',
       owner: 'lordFahdan',
       url: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master'
     })
     autoUpdater.logger = electronLog;
-    autoUpdater.checkForUpdatesAndNotify();
+    autoUpdater.addAuthHeader(`Bearer glpat-iw2CmwcAqSE2vDFUWmrD`)
+    autoUpdater.checkForUpdatesAndNotify().catch(err => {
+      console.log(err)
+    });
   }
 }
 
@@ -30,6 +33,11 @@ let mainWindow : BrowserWindow;
 let userWindow : BrowserWindow;
 let db: sqlite3.Database = new sqlite3.Database('test.db');
 
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  }
+});
 
 function createMainWindow(){
   mainWindow = new BrowserWindow({
@@ -46,11 +54,10 @@ function createMainWindow(){
   mainWindow.webContents.openDevTools();
   mainWindow.loadFile('./app/index.html');
   mainWindow.once("ready-to-show", () => {
-    autoUpdater.checkForUpdatesAndNotify();
+    new AppUpdater();
   });
 }
 
-new AppUpdater();
 
 function createUserWindow(){
   userWindow = new BrowserWindow({

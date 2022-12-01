@@ -5,7 +5,19 @@
   "main": "main.js",
   "repository": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master",
   "build": {
-    "appId": "ResearchElectron"
+    "appId": "ResearchElectron",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://gitlab.com/felicioangga004/researchelectron/-/tree/master"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "verifyUpdateCodeSignature": false
+    }
   },
   "scripts": {
     "start": "electron .",

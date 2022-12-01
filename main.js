@@ -49,14 +49,17 @@ var electronLog = require("electron-log");
 var AppUpdater = /** @class */ (function () {
     function AppUpdater() {
         electronLog.transports.file.level = 'info';
-        electron_updater_1.autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD" };
+        // autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-iw2CmwcAqSE2vDFUWmrD"};
         electron_updater_1.autoUpdater.setFeedURL({
             provider: 'generic',
             owner: 'lordFahdan',
             url: 'https://gitlab.com/felicioangga004/researchelectron/-/tree/master'
         });
         electron_updater_1.autoUpdater.logger = electronLog;
-        electron_updater_1.autoUpdater.checkForUpdatesAndNotify();
+        electron_updater_1.autoUpdater.addAuthHeader("Bearer glpat-iw2CmwcAqSE2vDFUWmrD");
+        electron_updater_1.autoUpdater.checkForUpdatesAndNotify().catch(function (err) {
+            console.log(err);
+        });
     }
     return AppUpdater;
 }());
@@ -64,6 +67,11 @@ process.env.NODE_ENV = 'production';
 var mainWindow;
 var userWindow;
 var db = new sqlite3.Database('test.db');
+Object.defineProperty(electron_1.app, 'isPackaged', {
+    get: function () {
+        return true;
+    }
+});
 function createMainWindow() {
     mainWindow = new electron_1.BrowserWindow({
         width: 650,
@@ -79,10 +87,9 @@ function createMainWindow() {
     mainWindow.webContents.openDevTools();
     mainWindow.loadFile('./app/index.html');
     mainWindow.once("ready-to-show", function () {
-        electron_updater_1.autoUpdater.checkForUpdatesAndNotify();
+        new AppUpdater();
     });
 }
-new AppUpdater();
 function createUserWindow() {
     userWindow = new electron_1.BrowserWindow({
         width: 650,
