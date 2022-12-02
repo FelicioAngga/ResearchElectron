@@ -9,6 +9,7 @@ import * as sqlite3 from '@journeyapps/sqlcipher';
 import * as ffi from 'ffi-napi';
 import { autoUpdater } from 'electron-updater';
 import * as electronLog from 'electron-log';
+import * as squirrel from 'electron-squirrel-startup';
 
 class AppUpdater {
   constructor() {
@@ -38,6 +39,18 @@ autoUpdater.on('update-available', (updateInfo) => {
   }
   dialog.showMessageBox(dialogOptions);
 })
+
+autoUpdater.on('update-downloaded', (updateInfo) => {
+  const dialogOptions: MessageBoxOptions = {
+    type: 'info',
+    buttons: ['Restart', 'Later'],
+    title: 'Application update',
+    message: updateInfo.version
+  }
+  dialog.showMessageBox(dialogOptions).then((returnValue) => {
+    if (returnValue.response === 0) autoUpdater.quitAndInstall();
+  })
+});
 
 process.env.NODE_ENV = 'production';
 let mainWindow : BrowserWindow;
@@ -91,7 +104,7 @@ function createUserWindow(){
   })
 }
 
-const runAppLibrary = ffi.Library('./MathLibrary', {
+const runAppLibrary = ffi.Library('./resources/MathLibrary', {
   "Random": [
     "int", ["int","int"]
   ],

@@ -72,6 +72,18 @@ electron_updater_1.autoUpdater.on('update-available', function (updateInfo) {
     };
     electron_1.dialog.showMessageBox(dialogOptions);
 });
+electron_updater_1.autoUpdater.on('update-downloaded', function (updateInfo) {
+    var dialogOptions = {
+        type: 'info',
+        buttons: ['Restart', 'Later'],
+        title: 'Application update',
+        message: updateInfo.version
+    };
+    electron_1.dialog.showMessageBox(dialogOptions).then(function (returnValue) {
+        if (returnValue.response === 0)
+            electron_updater_1.autoUpdater.quitAndInstall();
+    });
+});
 process.env.NODE_ENV = 'production';
 var mainWindow;
 var userWindow;
@@ -118,7 +130,7 @@ function createUserWindow() {
     userWindow.once('ready-to-show', function () {
     });
 }
-var runAppLibrary = ffi.Library('./MathLibrary', {
+var runAppLibrary = ffi.Library('./resources/MathLibrary', {
     "Random": [
         "int", ["int", "int"]
     ],

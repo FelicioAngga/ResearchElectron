@@ -1,6 +1,6 @@
 {
   "name": "researchElectron",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "",
   "main": "main.js",
@@ -12,24 +12,24 @@
     "appId": "ResearchElectron",
     "productName": "ResearchElectron",
     "directories": {
-			"output": "electron-build",
-			"buildResources": "build-assets"
-		},
+      "output": "electron-build",
+      "buildResources": "build-assets"
+    },
     "win": {
-			"publish": [
-				"github"
-			],
+      "publish": [
+        "github"
+      ],
       "extraResources": [
         "./*.dll"
       ]
-		}
+    }
   },
   "scripts": {
     "start": "electron .",
     "dev": "nodemon --exec electron .",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "electron-builder --win",
+    "dist": "set GH_TOKEN=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 && electron-builder --win --publish always",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --asar --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
   },
   "devDependencies": {
@@ -55,6 +55,7 @@
     "@types/node": "^18.11.9",
     "active-win": "^7.7.2",
     "electron-log": "^4.4.8",
+    "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^5.3.0",
     "ffi-napi": "^4.0.3",
     "node-active-window": "^0.1.0",
