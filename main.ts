@@ -23,9 +23,7 @@ class AppUpdater {
     //   private: true,
     //   token: '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'
     // })
-    process.env.AWS_ACCESS_KEY_ID = 'AKIATHJH2RIY7EF5ENSM';
-    process.env.AWS_SECRET_ACCESS_KEY = 'xruB2v94Avq1K+g9N9sHE65rGPq0BbDqBGshas0';
-    autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-NjDaHZ7WVvEmEawPiH5u"}
+
     autoUpdater.autoDownload = true;
     autoUpdater.setFeedURL({
       provider: "generic",
