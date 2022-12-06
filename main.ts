@@ -16,13 +16,23 @@ class AppUpdater {
     
     electronLog.transports.file.level = 'info';
     autoUpdater.logger = electronLog;
+    // autoUpdater.setFeedURL({
+    //   provider: "github",
+    //   repo: 'ResearchElectron',
+    //   owner: 'FelicioAngga',
+    //   private: true,
+    //   token: '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'
+    // })
+    process.env.AWS_ACCESS_KEY_ID = 'AKIATHJH2RIY7EF5ENSM';
+    process.env.AWS_SECRET_ACCESS_KEY = 'xruB2v94Avq1K+g9N9sHE65rGPq0BbDqBGshas0';
+    autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "glpat-NjDaHZ7WVvEmEawPiH5u"}
+    autoUpdater.autoDownload = true;
     autoUpdater.setFeedURL({
-      provider: "github",
+      provider: "generic",
       repo: 'ResearchElectron',
+      url: 'https://gitlab.com/felicioangga004/researchelectron',
       owner: 'FelicioAngga',
-      private: true,
-      token: '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'
-
+      private: true
     })
     autoUpdater.checkForUpdatesAndNotify().catch(err => {
       console.log(err);
