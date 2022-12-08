@@ -14,6 +14,6 @@ deploy-job:
     - aws configure set aws_default_region "$AWS_DEFAULT_REGION"
   
   script:
-    - CMD.EXE "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" C:\GitLab-Runner\builds\rS1z3GJ3\0\folder1\client\build\clientWebsite.msbuild /t:BuildAndPackage /nowarn:CS0618 /p:IisWebAppName=client /p:IncludeSetAclProviderOnDestination=False /p:ProductVersion=1
+    - npm install @vscode/vsce
     - npm i
     - npm run build-s3
