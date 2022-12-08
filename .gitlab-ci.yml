@@ -7,6 +7,7 @@ deploy-job:
   stage: deploy 
   image: node:latest
   before_script:
+    - apt-get install -y build-essential
     - apt-get update --allow-releaseinfo-change -y
     - apt-get install awscli -y
     - aws configure set aws_access_key_ud "$AWS_ACCESS_KEY_ID"
