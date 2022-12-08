@@ -46,17 +46,23 @@ var sqlite3 = require("@journeyapps/sqlcipher");
 var ffi = require("ffi-napi");
 var electron_updater_1 = require("electron-updater");
 var electronLog = require("electron-log");
+var dotenv = require("dotenv");
+dotenv.config();
 var AppUpdater = /** @class */ (function () {
     function AppUpdater() {
         electronLog.transports.file.level = 'info';
         electron_updater_1.autoUpdater.logger = electronLog;
-        electron_updater_1.autoUpdater.setFeedURL({
-            provider: "github",
-            repo: 'ResearchElectron',
-            owner: 'FelicioAngga',
-            private: true,
-            token: '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'
-        });
+        // autoUpdater.setFeedURL({
+        //   provider: "github",
+        //   repo: 'ResearchElectron',
+        //   owner: 'FelicioAngga',
+        //   private: true,
+        //   token: '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'
+        // })
+        //https://sbs-testing.s3.ap-southeast-1.amazonaws.com
+        //https://s3.console.aws.amazon.com/s3/buckets/sbs-testing
+        electron_updater_1.autoUpdater.autoDownload = true;
+        electron_updater_1.autoUpdater.setFeedURL('https://sbs-testing.s3.ap-southeast-1.amazonaws.com/sbsElectron');
         electron_updater_1.autoUpdater.checkForUpdatesAndNotify().catch(function (err) {
             console.log(err);
         });
@@ -68,7 +74,7 @@ electron_updater_1.autoUpdater.on('update-available', function (updateInfo) {
         type: 'info',
         buttons: ['Ok'],
         title: 'Application update',
-        message: updateInfo.version
+        message: "".concat(updateInfo.version, " - ").concat(updateInfo.files)
     };
     electron_1.dialog.showMessageBox(dialogOptions);
 });

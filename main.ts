@@ -9,7 +9,8 @@ import * as sqlite3 from '@journeyapps/sqlcipher';
 import * as ffi from 'ffi-napi';
 import { autoUpdater } from 'electron-updater';
 import * as electronLog from 'electron-log';
-import * as squirrel from 'electron-squirrel-startup';
+import * as dotenv from 'dotenv';
+dotenv.config()
 
 class AppUpdater {
   constructor() {
@@ -24,14 +25,10 @@ class AppUpdater {
     //   token: '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'
     // })
 
+    //https://sbs-testing.s3.ap-southeast-1.amazonaws.com
+    //https://s3.console.aws.amazon.com/s3/buckets/sbs-testing
     autoUpdater.autoDownload = true;
-    autoUpdater.setFeedURL({
-      provider: "generic",
-      repo: 'ResearchElectron',
-      url: 'https://gitlab.com/felicioangga004/researchelectron',
-      owner: 'FelicioAngga',
-      private: true
-    })
+    autoUpdater.setFeedURL('https://sbs-testing.s3.ap-southeast-1.amazonaws.com/sbsElectron');
     autoUpdater.checkForUpdatesAndNotify().catch(err => {
       console.log(err);
     });
@@ -43,7 +40,7 @@ autoUpdater.on('update-available', (updateInfo) => {
     type: 'info',
     buttons: ['Ok'],
     title: 'Application update',
-    message: updateInfo.version
+    message: `${updateInfo.version} - ${updateInfo.files}`
   }
   dialog.showMessageBox(dialogOptions);
 })
