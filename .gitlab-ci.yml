@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+deploy-job:
+  stage: deploy 
+  image: node:latest
+  before_script:
+    - apt-get update --allow-releaseinfo-change -y
+    - apt-get install awscli -y
+    - aws configure set aws_access_key_ud "$AWS_ACCESS_KEY_ID"
+    - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"    
+    - aws configure set aws_default_region "$AWS_DEFAULT_REGION"
+  
+  script: 
+    - npm install windows-build-tools
+    - npm i
+    - npm run build-s3
