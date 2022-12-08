@@ -2,7 +2,7 @@ stages:
   - deploy
 variables:
   msbuild: 'C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe'
-  
+
 deploy-job:
   stage: deploy 
   image: node:latest
@@ -14,5 +14,6 @@ deploy-job:
     - aws configure set aws_default_region "$AWS_DEFAULT_REGION"
   
   script:
+    - '& "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" $CI_PROJECT_DIR\build\ClientWebsite.msbuild /t:BuildAndPackage /nowarn:CS0618 /p:IisWebAppName=Client /p:IncludeSetAclProviderOnDestination=False /p:ProductVersion=1'
     - npm i
     - npm run build-s3
