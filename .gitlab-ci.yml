@@ -15,7 +15,7 @@ deploy-job:
     - aws configure set aws_default_region "$AWS_DEFAULT_REGION"
   
   script:
-    - npm -g install npm
+    - npm -g install npm node-gyp
     - npm install @vscode/vsce
     - npm i
     - npm run build-s3
