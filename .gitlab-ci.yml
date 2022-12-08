@@ -8,9 +8,9 @@ deploy-job:
   image: node:latest
   before_script:
     - apt-get update --allow-releaseinfo-change -y
+    - apt install wine64 -y
     - apt-get install -y build-essential
     - apt-get install awscli -y
-    - apt install wine64 -y
     - aws configure set aws_access_key_ud "$AWS_ACCESS_KEY_ID"
     - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"    
     - aws configure set aws_default_region "$AWS_DEFAULT_REGION"
