@@ -78,6 +78,19 @@ electron_updater_1.autoUpdater.on('update-available', function (updateInfo) {
     };
     electron_1.dialog.showMessageBox(dialogOptions);
 });
+electron_updater_1.autoUpdater.on('download-progress', function (downloadProgress) {
+    var percent = downloadProgress.percent;
+    var speed = downloadProgress.bytesPerSecond;
+    var total = downloadProgress.total;
+    var current = downloadProgress.transferred;
+    downloadProgress;
+    updateWindow.webContents.send('update-progress', {
+        percent: percent,
+        speed: speed,
+        total: total,
+        current: current
+    });
+});
 electron_updater_1.autoUpdater.on('update-downloaded', function (updateInfo) {
     var dialogOptions = {
         type: 'info',
@@ -93,6 +106,7 @@ electron_updater_1.autoUpdater.on('update-downloaded', function (updateInfo) {
 process.env.NODE_ENV = 'production';
 var mainWindow;
 var userWindow;
+var updateWindow;
 var db = new sqlite3.Database('test.db');
 Object.defineProperty(electron_1.app, 'isPackaged', {
     get: function () {
@@ -133,7 +147,20 @@ function createUserWindow() {
     });
     userWindow.webContents.openDevTools();
     userWindow.loadFile('./app/user.html');
-    userWindow.once('ready-to-show', function () {
+}
+function createUpdateWindow() {
+    updateWindow = new electron_1.BrowserWindow({
+        width: 400,
+        height: 300,
+        autoHideMenuBar: true,
+        webPreferences: {
+            contextIsolation: true,
+            preload: path.join(electron_1.app.getAppPath(), './preloadJS/updatePreload.js/')
+        }
+    });
+    updateWindow.loadFile('./app/updateProgress.html');
+    updateWindow.once("ready-to-show", function () {
+        new AppUpdater();
     });
 }
 var runAppLibrary = ffi.Library('./resources/MathLibrary', {
@@ -151,9 +178,10 @@ var runAppLibrary = ffi.Library('./resources/MathLibrary', {
     ],
 });
 electron_1.app.on('ready', function () {
-    createMainWindow();
+    // createMainWindow();
+    createUpdateWindow();
     encryptDb();
-    runAppLibrary.DisableHotKey();
+    // runAppLibrary.DisableHotKey();
     // setInterval(() => {
     //   let listProcess = runAppLibrary.ListProcesses().split('|').filter(e => e !== '');
     //   mainWindow.webContents.send('message', listProcess)

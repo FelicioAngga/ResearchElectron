@@ -5,3 +5,13 @@ body{
 p{
   color: #E5F8FF; 
 }
+
+.progress-container {
+  padding: 32px;
+  height: 100vh;
+}
+
+.bar {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div class="progress-container">
+    <p>Downloading...</p>
+    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 bar">
+      <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 0%" id="percent"> 0%</div>
+    </div>
+    <p id="transfered"></p>
+    <p id="speed"></p>
+  </div>
+  <script src="./js/updateProgress.js"></script>
+</body>
+</html>

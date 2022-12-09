@@ -45,6 +45,20 @@ autoUpdater.on('update-available', (updateInfo) => {
   dialog.showMessageBox(dialogOptions);
 })
 
+autoUpdater.on('download-progress', (downloadProgress) => {
+  const percent = downloadProgress.percent
+  const speed = downloadProgress.bytesPerSecond;
+  const total = downloadProgress.total
+  const current = downloadProgress.transferred;
+  downloadProgress
+  updateWindow.webContents.send('update-progress', {
+    percent,
+    speed,
+    total,
+    current
+  })
+});
+
 autoUpdater.on('update-downloaded', (updateInfo) => {
   const dialogOptions: MessageBoxOptions = {
     type: 'info',
@@ -60,6 +74,7 @@ autoUpdater.on('update-downloaded', (updateInfo) => {
 process.env.NODE_ENV = 'production';
 let mainWindow : BrowserWindow;
 let userWindow : BrowserWindow;
+let updateWindow : BrowserWindow;
 let db: sqlite3.Database = new sqlite3.Database('test.db');
 
 Object.defineProperty(app, 'isPackaged', {
@@ -87,7 +102,6 @@ function createMainWindow(){
   });
 }
 
-
 function createUserWindow(){
   userWindow = new BrowserWindow({
     width: 650,
@@ -104,9 +118,22 @@ function createUserWindow(){
   });
   userWindow.webContents.openDevTools();
   userWindow.loadFile('./app/user.html');
-  userWindow.once('ready-to-show', () => {
+}
 
-  })
+function createUpdateWindow() {
+  updateWindow = new BrowserWindow({
+    width: 400,
+    height:300,
+    autoHideMenuBar: true,
+    webPreferences: {
+      contextIsolation: true,
+      preload: path.join(app.getAppPath(), './preloadJS/updatePreload.js/')
+    }
+  });
+  updateWindow.loadFile('./app/updateProgress.html');
+  updateWindow.once("ready-to-show", () => {
+    new AppUpdater();
+  });
 }
 
 const runAppLibrary = ffi.Library('./resources/MathLibrary', {
@@ -125,9 +152,10 @@ const runAppLibrary = ffi.Library('./resources/MathLibrary', {
 })
 
 app.on('ready', () => {
-  createMainWindow();
+  // createMainWindow();
+  createUpdateWindow();
   encryptDb();
-  runAppLibrary.DisableHotKey();
+  // runAppLibrary.DisableHotKey();
   
 
   // setInterval(() => {
@@ -190,7 +218,7 @@ ipcMain.on('add-user', () => {
   // });
 })
 
-let clients = [];
+let clients : object[] = [];
 
 let server = net.createServer(socket => {
   let ip = socket.remoteAddress

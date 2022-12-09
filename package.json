@@ -1,6 +1,6 @@
 {
   "name": "researchElectron",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "private": true,
   "description": "",
   "main": "main.js",
@@ -32,7 +32,7 @@
     "start": "electron .",
     "dev": "nodemon --exec electron .",
     "build": "npx tsc",
-    "build-s3": "electron-builder --win --publish always",
+    "build-s3": "electron-builder --win --publish never",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dist": "set GH_TOKEN=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 && electron-builder --win --publish always",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --asar --icon=assets/icons/SBS-64x64.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"ResearchElectron\""
@@ -50,6 +50,7 @@
     "electron-packager": "^17.1.1",
     "electron-rebuild": "^3.2.9",
     "electron-winstaller": "^5.1.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "tailwindcss": "^3.2.3",
     "typescript": "^4.8.4"
   },
