@@ -12,11 +12,11 @@ deploy-job:
     - apt install wine32 -y
     - apt-get install -y build-essential
     - apt-get install awscli -y
-    - aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
-    - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"    
-    - aws configure set aws_default_region "$AWS_DEFAULT_REGION"
   
   script:
+    - aws configure setx AWS_ACCESS_KEY_ID "$AWS_ACCESS_KEY_ID"
+    - aws configure setx AWS_SECRET_ACCESS_KEY "$AWS_SECRET_ACCESS_KEY"    
+    - aws configure setx AWS_DEFAULT_REGION "$AWS_DEFAULT_REGION"
     - npm -g install npm node-gyp
     - npm install @vscode/vsce
     - rm -rf package-lock.json
