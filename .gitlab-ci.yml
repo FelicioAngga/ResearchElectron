@@ -21,3 +21,4 @@ deploy-job:
     - ls -al
     - ls ~
     - cd ~/.aws
+    - ls ~/.aws
