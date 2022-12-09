@@ -20,5 +20,5 @@ deploy-job:
   script:
     - ls -al
     - ls ~
-    - cd ~/.aws
+    - cd ~/.aws/credentials
     - ls -al
