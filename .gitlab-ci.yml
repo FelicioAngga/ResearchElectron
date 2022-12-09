@@ -6,7 +6,7 @@ variables:
 deploy-job:
   stage: deploy 
   image: node:latest
-  before_script:
+  script:
     - apt-get update --allow-releaseinfo-change -y
     - echo $AWS_ACCESS_KEY_ID
     - echo $AWS_SECRET_ACCESS_KEY
@@ -20,7 +20,7 @@ deploy-job:
     # - aws configure set default.region "$AWS_DEFAULT_REGION"
     # - aws configure set output "json" 
   
-  script:
+  # script:
     # - npm -g install npm node-gyp
     # - npm install @vscode/vsce
     # - rm -rf package-lock.json
