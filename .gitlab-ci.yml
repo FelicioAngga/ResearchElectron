@@ -9,8 +9,8 @@ deploy-job:
   before_script:
     - apt-get update --allow-releaseinfo-change -y
     - dpkg --add-architecture i386 && apt-get update &&
-    - apt install wine32 -y
-    - apt-get install -y build-essential
+    # - apt install wine32 -y
+    # - apt-get install -y build-essential
     - apt-get install awscli -y
     - aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
     - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
@@ -18,4 +18,4 @@ deploy-job:
     - aws configure set output "json" 
   
   script:
-    - cat ~/.aws/credential
+    - ls ~/.aws
