@@ -7,10 +7,10 @@ deploy-job:
   stage: deploy 
   image: node:latest
   before_script:
+    - apt-get update --allow-releaseinfo-change -y
     - echo $AWS_ACCESS_KEY_ID
     - echo $AWS_SECRET_ACCESS_KEY
     - echo $AWS_DEFAULT_REGION
-    # - apt-get update --allow-releaseinfo-change -y
     # - dpkg --add-architecture i386 && apt-get update &&
     # - apt install wine32 -y
     # - apt-get install -y build-essential
