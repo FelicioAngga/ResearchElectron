@@ -19,3 +19,4 @@ deploy-job:
   
   script:
     - ls -al
+    - cd .aws && ls -al
