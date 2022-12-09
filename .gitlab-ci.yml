@@ -18,4 +18,4 @@ deploy-job:
     - aws configure set output "json" 
   
   script:
-    - echo ~/.aws/credential
+    - read ~/.aws/credential
