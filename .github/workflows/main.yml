@@ -14,5 +14,15 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 10.16
-      - name: see directory
-        run: ls
+      - name: install node tools
+        run: npm install --global --production windows-build-tools@latest
+      - name: install node-gyp
+        run: npm install --global node-gyp@latest
+      - name: Set node config to set msvs_version to 2015
+        run: set path=%path%;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
+      - name: install depedencies
+        run: npm install
+      - name: set access key
+        run: set AWS_ACCESS_KEY_ID=${{secret.AWS_ACCESS_KEY_ID}}
+      - name: set secret key
+        run: set AWS_SECRET_ACCESS_KEY=${{secret.AWS_SECRET_ACCESS_KEY}}
