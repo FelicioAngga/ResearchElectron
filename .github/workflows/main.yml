@@ -21,7 +21,7 @@ jobs:
       - name: Set node config to set msvs_version to 2015
         run: npm config set msvs_version 2015
       - name: Set node config to set msvs_version to 2015
-        run: set path=%path%;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
+        run: set path=%path%;C:\Program Files (x64)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin
       - name: install depedencies
         run: npm install
       - name: set access key
