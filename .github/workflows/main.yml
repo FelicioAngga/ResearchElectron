@@ -13,9 +13,7 @@ jobs:
           ref: master
       - uses: actions/setup-node@master
         with:
-          node-version: 10.16
-      - name: install node tools
-        run: npm install --global --production windows-build-tools@latest
+          node-version: 16.15.1
       - name: install node-gyp
         run: npm install --global node-gyp@latest
       - name: Set node config to set msvs_version to 2015
