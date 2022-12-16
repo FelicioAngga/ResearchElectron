@@ -22,6 +22,8 @@ jobs:
         run: npm config set python python2.7
       - name: Set node config to set msvs_version to 2015
         run: npm config set msvs_version 2015
+      - name: check dir
+        run: ls C:\Program Files\Microsoft Visual Studio\
       - name: Set node config to set msvs_version to 2015
         run: set path=C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin
       - name: install depedencies
