@@ -14,8 +14,8 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16.15.1
-      - name: install node_gyp
-        run: npm install node-gyp
+      - name: clear cache
+        run: npm cache clean --force
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Set node config to use python2.7
