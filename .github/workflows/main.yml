@@ -14,10 +14,10 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16.15.1
-      - name: update npm
-        run: npm update -g npm
       - name: clear cache
         run: npm cache clean --force
+      - name: update npm
+        run: npm update -g npm
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Set node config to use python2.7
@@ -26,6 +26,8 @@ jobs:
         run: npm config set msvs_version 2017
       - name: install depedencies
         run: npm install --force
+      - name: rebuild
+        run: npm rebuild
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
