@@ -25,7 +25,7 @@ jobs:
       - name: install depedencies
         run: npm install 
       - name: rm node_gyp
-        run: rm -rf ~/.node_gyp
+        run: rm ~/.node_gyp
       - name: install all
         run: npm install
       - name: rebuild
