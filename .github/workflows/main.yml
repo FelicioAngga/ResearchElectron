@@ -14,6 +14,8 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16.15.1
+      - name: install node_gyp
+        run: npm install npm node-gyp
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
         with:
@@ -24,8 +26,6 @@ jobs:
         run: npm config set msvs_version 2017
       - name: install depedencies
         run: npm install 
-      - name: install node_gyp
-        run: npm install npm node-gyp
       - name: rebuild
         run: npm rebuild
       - name: set access key
