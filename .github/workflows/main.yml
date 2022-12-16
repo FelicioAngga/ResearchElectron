@@ -14,8 +14,8 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16.15.1
-      - name: install vsc
-        run: npm install @vscode/vsce
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
       - name: install node-gyp
         run: npm install --global node-gyp@latest
       - name: Set node config to use python2.7
