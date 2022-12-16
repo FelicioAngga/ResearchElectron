@@ -18,6 +18,8 @@ jobs:
         run: npm cache clean --force
       - name: update npm
         run: npm update -g npm
+      - name: update gyp
+        run: npm install --global node-sass@latest
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Set node config to use python2.7
