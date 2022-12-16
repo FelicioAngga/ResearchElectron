@@ -23,7 +23,7 @@ jobs:
       - name: Set node config to set msvs_version to 2015
         run: npm config set msvs_version 2015
       - name: install depedencies
-        run: npm install
+        run: npm install --ignore-script 
       - name: set access key
         run: set AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}}
       - name: set secret key
