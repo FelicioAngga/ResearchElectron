@@ -30,5 +30,7 @@ jobs:
         run: set AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}}
       - name: set secret key
         run: set AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}}
+      - name: check credential
+        run: echo ${{secrets.AWS_SECRET_ACCESS_KEY}}
       - name: test build
         run: npm run build-s3
