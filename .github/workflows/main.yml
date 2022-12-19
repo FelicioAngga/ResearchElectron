@@ -19,7 +19,7 @@ jobs:
       - name: update npm
         run: npm update -g npm
       - name: update gyp
-        run: npm install --global node-sass@latest
+        run: npm install --global node-gyp@latest
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Set node config to use python2.7
